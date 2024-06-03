@@ -1,59 +1,8 @@
-import React from "react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Heading from "./Heading";
-
-const reviews = [
-  {
-    id: 1,
-    imgSrc: "./images/pic-1.png",
-    imgAlt: "review-1",
-    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab, sequi velit. Officiis soluta aperiam nostrum molestiae ab impedit nihil dolores.",
-    name: "Jhon Deo",
-    rating: 5,
-  },
-  {
-    id: 2,
-    imgSrc: "./images/pic-2.png",
-    imgAlt: "review-2",
-    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab, sequi velit. Officiis soluta aperiam nostrum molestiae ab impedit nihil dolores.",
-    name: "Emily Shelby",
-    rating: 5,
-  },
-  {
-    id: 3,
-    imgSrc: "./images/pic-3.png",
-    imgAlt: "review-3",
-    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab, sequi velit. Officiis soluta aperiam nostrum molestiae ab impedit nihil dolores.",
-    name: "Tomson Farnandis",
-    rating: 5,
-  },
-  {
-    id: 4,
-    imgSrc: "./images/pic-4.png",
-    imgAlt: "review-4",
-    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab, sequi velit. Officiis soluta aperiam nostrum molestiae ab impedit nihil dolores.",
-    name: "Marshall Art",
-    rating: 5,
-  },
-  {
-    id: 5,
-    imgSrc: "./images/mans-29.jpg",
-    imgAlt: "review-5",
-    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab, sequi velit. Officiis soluta aperiam nostrum molestiae ab impedit nihil dolores.",
-    name: "Fransis Haalan",
-    rating: 5,
-  },
-  {
-    id: 6,
-    imgSrc: "./images/review-img-8.jpg",
-    imgAlt: "review-6",
-    text: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab, sequi velit. Officiis soluta aperiam nostrum molestiae ab impedit nihil dolores.",
-    name: "Kevin Atlas",
-    rating: 4.5,
-  },
-];
+import { reviews } from "../data/dummy";
 
 export const Reviews = () => {
   return (

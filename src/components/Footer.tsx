@@ -1,5 +1,3 @@
-import React from "react";
-
 export const Footer = () => {
   return (
     <section className="py-8 bg-white" id="footer">

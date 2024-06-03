@@ -1,75 +1,8 @@
-import React from "react";
 import Heading from "./Heading";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-
-const products = [
-  {
-    id: 1,
-    imgSrc: "./images/product-1.png",
-    imgAlt: "product-1",
-    name: "Fresh Orange",
-    price: "$4.99/- - $6.28/-",
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    imgSrc: "./images/product-2.png",
-    imgAlt: "product-2",
-    name: "Fresh Onions",
-    price: "$1.99/- - $3.08/-",
-    rating: 4.5,
-  },
-  {
-    id: 3,
-    imgSrc: "./images/product-3.png",
-    imgAlt: "product-3",
-    name: "Fresh Meat",
-    price: "$4.99/- - $12.00/-",
-    rating: 5,
-  },
-  {
-    id: 4,
-    imgSrc: "./images/product-4.png",
-    imgAlt: "product-4",
-    name: "Fresh Cabbage",
-    price: "$1.00/- - $2.48/-",
-    rating: 4.5,
-  },
-  {
-    id: 5,
-    imgSrc: "./images/product-5.png",
-    imgAlt: "product-5",
-    name: "Fresh Potato",
-    price: "$3.70/- - $5.08/-",
-    rating: 4.5,
-  },
-  {
-    id: 6,
-    imgSrc: "./images/product-6.png",
-    imgAlt: "product-6",
-    name: "Fresh Hass Avocado",
-    price: "$4.50/- - $6.04/-",
-    rating: 5,
-  },
-  {
-    id: 7,
-    imgSrc: "./images/product-7.png",
-    imgAlt: "product-7",
-    name: "Fresh Carrot",
-    price: "$0.99/- - $2.49/-",
-    rating: 4.5,
-  },
-  {
-    id: 8,
-    imgSrc: "./images/product-8.png",
-    imgAlt: "product-8",
-    name: "Fresh Lime",
-    price: "$5.99/- - $6.99/-",
-    rating: 5,
-  },
-];
+import { products } from "../data/dummy";
 
 export const Products = () => {
   return (
