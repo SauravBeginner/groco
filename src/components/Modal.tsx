@@ -4,7 +4,10 @@ export const Modal = () => {
   return (
     <div className="absolute top-20 right-0 w-72 p-4 bg-white rounded-lg shadow-lg border-t">
       {Array.from({ length: 3 }).map((_, index) => (
-        <div className="flex items-center mb-2 justify-between border-b">
+        <div
+          className="flex items-center mb-2 justify-between border-b"
+          key={index}
+        >
           <div className="flex mb-2">
             <img src="./images/cart-img-1.png" alt="#" className="h-16 ml-2" />
             <div className="ml-4">
