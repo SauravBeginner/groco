@@ -89,6 +89,7 @@ const filters = [
   },
 ];
 
+// @ts-ignore
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
