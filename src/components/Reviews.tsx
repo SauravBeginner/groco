@@ -14,8 +14,8 @@ export const Reviews = () => {
         </span>
       </Heading>
       <Swiper
-        spaceBetween={50}
-        slidesPerView={3}
+        // spaceBetween={50}
+        // slidesPerView={3}
         //   centeredSlides={true}
         autoplay={{
           delay: 2500,
@@ -23,6 +23,20 @@ export const Reviews = () => {
         }}
         pagination={{
           clickable: true,
+        }}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 40,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
         }}
         navigation={true}
         onSlideChange={() => console.log("slide change")}
