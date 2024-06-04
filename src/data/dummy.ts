@@ -311,14 +311,6 @@ export const products = [
     price: "$0.99/- - $2.49/-",
     rating: 4.5,
   },
-  {
-    id: 8,
-    imgSrc: "./images/product-8.png",
-    imgAlt: "product-8",
-    name: "Fresh Lime",
-    price: "$5.99/- - $6.99/-",
-    rating: 5,
-  },
 ];
 export const reviews = [
   {
