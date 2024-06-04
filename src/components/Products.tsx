@@ -3,8 +3,10 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { products } from "../data/dummy";
+import { useNavigate } from "react-router-dom";
 
 export const Products = () => {
+  const navigate = useNavigate();
   return (
     <section className="py-8" id="products">
       <Heading>
@@ -49,6 +51,7 @@ export const Products = () => {
             <SwiperSlide
               key={product.id}
               className="swiper-slide p-6 bg-white rounded-lg shadow-lg text-center"
+              onClick={() => navigate(`/product/${product.id}`)}
             >
               <img
                 src={product.imgSrc}
