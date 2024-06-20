@@ -1,18 +1,4 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogPanel,
@@ -34,9 +20,10 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-import { products } from "../data/dummy";
+// import { products } from "../data/dummy";
 import { ProductCard } from "../components/ProductCard";
-
+import axios from "axios";
+import { base_URL } from "../utils";
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
   { name: "Best Rating", href: "#", current: false },
@@ -97,6 +84,16 @@ function classNames(...classes) {
 export default function AllProducts() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${base_URL}/product/products`, { withCredentials: true })
+      .then((response: any) => setProducts(response.data.products))
+      .catch((err: any) => {
+        console.log(err);
+      });
+  });
   return (
     <div className="bg-white scrollbar-hide">
       {/* Mobile filter dialog */}
@@ -370,8 +367,8 @@ export default function AllProducts() {
 
             {/* Product grid */}
             <div className="lg:col-span-3 flex flex-wrap gap-4 justify-center">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+              {products.map((product: any) => (
+                <ProductCard key={product?.id} product={product} />
               ))}
             </div>
           </div>

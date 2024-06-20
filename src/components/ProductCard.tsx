@@ -10,7 +10,7 @@ export const ProductCard = ({ product }: any) => {
         onClick={() => navigate(`/product/${product.id}`)}
       >
         <img
-          src={product.imgSrc}
+          src={product.thumbNail}
           alt={product.imgAlt}
           className="mx-auto h-48 mb-4"
         />
