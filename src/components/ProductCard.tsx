@@ -12,6 +12,7 @@ export const ProductCard = ({ product }: any) => {
         <img
           src={product.thumbNail}
           alt={product.imgAlt}
+          loading="lazy"
           className="mx-auto h-48 mb-4"
         />
         <h1 className="text-2xl text-gray-800 mb-2">{product.name}</h1>

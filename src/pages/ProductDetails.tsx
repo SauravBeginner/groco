@@ -26,6 +26,7 @@ const ProductDetails = () => {
           <img
             alt="Nike Air Max 21A"
             className="h-64 w-full rounded object-cover lg:h-96"
+            loading="lazy"
             src={product?.thumbNail || "../images/hero-veg-2.0.jpg"}
           />
           <div className="mt-6 w-full lg:mt-0 lg:w-1/2 lg:pl-10">
