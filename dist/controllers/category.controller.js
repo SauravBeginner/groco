@@ -14,15 +14,23 @@ const groco_common_1 = require("@10xcoder/groco-common");
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const addCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const { success } = groco_common_1.createCategoryInput.safeParse(req.body);
     if (!success) {
         return res.status(400).json({ error: "Invalid request body!" });
     }
     const { name } = req.body;
+    //@ts-ignore
+    const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.userId;
     try {
         const category = yield prisma.category.create({
             data: {
                 name,
+                user: {
+                    connect: {
+                        id: userId,
+                    },
+                },
             },
         });
         return res.status(201).json({

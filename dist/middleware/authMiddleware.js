@@ -16,7 +16,6 @@ const authenticateJWT = (req, res, next) => {
         }
         const decoded = jsonwebtoken_1.default.verify(token, JWT_SECRET);
         req.user = decoded;
-        console.log(req);
         next();
     }
     catch (error) {
@@ -27,7 +26,6 @@ exports.authenticateJWT = authenticateJWT;
 const authAdmin = (req, res, next) => {
     var _a;
     try {
-        //  console.log(req?.user);
         if (((_a = req.user) === null || _a === void 0 ? void 0 : _a.role) !== "admin") {
             return res.status(403).json({ error: "You are not admin!" });
         }
