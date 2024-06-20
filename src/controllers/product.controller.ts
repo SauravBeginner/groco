@@ -67,8 +67,28 @@ export const getProducts = async (req: Request, res: Response) => {
     });
 
     return res.status(201).json({
-      message: "Product created successfully",
+      message: "All Products fetched successfully",
       products,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Something went wrong!",
+    });
+  }
+};
+
+export const getProductDetails = async (req: Request, res: Response) => {
+  try {
+    const product = await prisma.product.findUnique({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    return res.status(200).json({
+      message: "Product details fetched successfully",
+      product,
     });
   } catch (error) {
     console.log(error);

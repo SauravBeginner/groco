@@ -1,7 +1,11 @@
 import { Router } from "express";
 import { addCategory } from "../controllers/category.controller";
 import { authAdmin, authenticateJWT } from "../middleware/authMiddleware";
-import { addProduct, getProducts } from "../controllers/product.controller";
+import {
+  addProduct,
+  getProductDetails,
+  getProducts,
+} from "../controllers/product.controller";
 import { upload } from "../middleware/uploadMiddleware";
 
 const router = Router();
@@ -14,5 +18,6 @@ router.post(
   addProduct
 );
 router.get("/products", getProducts);
+router.get("/product-details/:id", getProductDetails);
 
 export default router;
