@@ -46,9 +46,10 @@ const ProductDetails = () => {
               </span>
             </div>
             <p className="leading-relaxed">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur
+              {product?.description ||
+                `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur
               rem amet repudiandae neque adipisci eum enim, natus illo inventore
-              totam?
+              totam?`}
             </p>
             <div className="mb-5 mt-6 flex items-center border-b-2 border-gray-100 pb-5">
               <div className="flex items-center">
