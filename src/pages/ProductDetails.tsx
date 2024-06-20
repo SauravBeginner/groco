@@ -1,6 +1,24 @@
+import axios from "axios";
 import { Star, ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { base_URL } from "../utils";
 
 const ProductDetails = () => {
+  const { id } = useParams();
+
+  const [product, setProduct] = useState<any>(null);
+
+  useEffect(() => {
+    axios
+      .get(`${base_URL}/product/product-details/${id}`)
+      .then((response) => {
+        console.log(response);
+        setProduct(response.data?.product);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <section className="overflow-hidden">
       <div className="mx-auto max-w-5xl px-5 py-24">
@@ -8,14 +26,14 @@ const ProductDetails = () => {
           <img
             alt="Nike Air Max 21A"
             className="h-64 w-full rounded object-cover lg:h-96"
-            src="../images/hero-veg-2.0.jpg"
+            src={product?.thumbNail || "../images/hero-veg-2.0.jpg"}
           />
           <div className="mt-6 w-full lg:mt-0 lg:w-1/2 lg:pl-10">
             <h2 className="text-sm font-semibold tracking-widest text-gray-500">
-              Nike
+              {product?.name}
             </h2>
             <h1 className="my-4 text-3xl font-semibold text-black">
-              Nike Air Max 21A
+              {product?.name.toUpperCase()}
             </h1>
             <div className="my-4 flex items-center">
               <span className="flex items-center space-x-1">

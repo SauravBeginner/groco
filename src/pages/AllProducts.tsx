@@ -93,7 +93,7 @@ export default function AllProducts() {
       .catch((err: any) => {
         console.log(err);
       });
-  });
+  }, []);
   return (
     <div className="bg-white scrollbar-hide">
       {/* Mobile filter dialog */}
