@@ -1,7 +1,6 @@
 import { createProductInput } from "@10xcoder/groco-common";
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { connect } from "mongoose";
 import { uploadCloudinary } from "../utils/cloudinary";
 
 const prisma = new PrismaClient();
