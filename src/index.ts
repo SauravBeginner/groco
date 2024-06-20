@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import rootRouter from "./routes";
@@ -15,6 +15,10 @@ app.use(
     credentials: true,
   })
 );
+
+app.get("/", (req: Request, res: Response) => {
+  res.status(200).json("Hello from server!");
+});
 app.use("/api/v1", rootRouter);
 
 app.listen(PORT, () => {
