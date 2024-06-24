@@ -20,17 +20,17 @@ const seed = () => __awaiter(void 0, void 0, void 0, function* () {
                 price: "199",
                 thumbNail: "https://groco-nu.vercel.app/images/product-1.png",
                 countInStock: 50,
-                categoryId: "d6fcf44c-6fa3-4744-9daa-2be0c50a75bd", // Replace with actual category ID
-                userId: "9d894d8d-c478-4112-a250-40a88f1c2097", // Replace with actual user ID
+                categoryId: "a2766a7f-e460-4b6d-8f37-f9c21608739e", // Replace with actual category ID
+                userId: "14698489-294a-4673-b9af-7526cd5b9943", // Replace with actual user ID
             },
             {
                 name: "Mutton",
                 description: "Fresh Mutton",
                 price: "2200",
-                thumbNail: "https://groco-nu.vercel.app/images/product-1.png",
+                thumbNail: "https://groco-nu.vercel.app/images/product-2.png",
                 countInStock: 20,
-                categoryId: "0ee19bb0-05e1-4192-8766-c1ac47c7d4dd", // Replace with actual category ID
-                userId: "9d894d8d-c478-4112-a250-40a88f1c2097", // Replace with actual user ID
+                categoryId: "ce8685f7-4068-45c0-a86e-3b2100eb4144", // Replace with actual category ID
+                userId: "14698489-294a-4673-b9af-7526cd5b9943", // Replace with actual user ID
             },
         ].concat(Array.from({ length: 48 }).map((_, i) => ({
             name: i % 2 === 0 ? `Vegetable ${i}` : `Non-Veg Item ${i}`,
@@ -40,10 +40,10 @@ const seed = () => __awaiter(void 0, void 0, void 0, function* () {
                 ? `https://groco-nu.vercel.app/images/product-1.png`
                 : `https://groco-nu.vercel.app/images/product-5.png`,
             countInStock: Math.floor(Math.random() * 100),
-            categoryId: i % 2 !== 0
-                ? "d6fcf44c-6fa3-4744-9daa-2be0c50a75bd"
-                : "0ee19bb0-05e1-4192-8766-c1ac47c7d4dd", // Replace with actual category IDs
-            userId: "9d894d8d-c478-4112-a250-40a88f1c2097", // Replace with actual user ID
+            categoryId: i % 2 === 0
+                ? "a2766a7f-e460-4b6d-8f37-f9c21608739e"
+                : "ce8685f7-4068-45c0-a86e-3b2100eb4144", // Replace with actual category IDs
+            userId: "14698489-294a-4673-b9af-7526cd5b9943", // Replace with actual user ID
         }))),
     });
     console.log("Seed successfully!");

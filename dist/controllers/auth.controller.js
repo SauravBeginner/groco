@@ -28,26 +28,67 @@ const groco_common_1 = require("@10xcoder/groco-common");
 const client_1 = require("@prisma/client");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
 const prisma = new client_1.PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
+const emailCredentials = "techx100x@gmail.com";
+const passCredentials = "Tech10x@712103";
+const transporter = nodemailer_1.default.createTransport({
+    pool: true,
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // use TLS
+    auth: { user: emailCredentials, pass: passCredentials },
+});
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { success } = groco_common_1.signupInput.safeParse(req.body);
     if (!success) {
         return res.status(400).json({ error: "Invalid request body!" });
     }
     const { name, email, password, role } = req.body;
+    const salt = yield bcrypt_1.default.genSalt(10);
+    const hashedPassword = yield bcrypt_1.default.hash(password, salt);
+    const tokens = crypto.randomUUID();
+    const verificationTokenExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
     try {
-        const salt = yield bcrypt_1.default.genSalt(10);
-        const hashedPassword = yield bcrypt_1.default.hash(password, salt);
         const user = yield prisma.user.create({
             data: {
                 name,
                 email,
                 password: hashedPassword,
+                // @ts-ignore
+                verificationToken: tokens,
+                verificationTokenExpiresAt,
                 role,
             },
         });
-        return res.status(201).json({ user });
+        console.log(`User created!`);
+        const verificationLink = `${process.env.PROD_SERVER_URL}/verify/${tokens}`;
+        // await transporter.sendMail({
+        //   from: '"Groco 👻" <no-reply@groco.email>', // sender address
+        //   to: email, // list of receivers
+        //   subject: "Verify your email ✔", // Subject line
+        //   text: `Click on the following link to verify your email: ${verificationLink}`,
+        //   //  html: "<b>Hello world?</b>", // html body
+        // });
+        const mailOptions = {
+            from: '"Groco 👻" <no-reply@groco.email>', // sender address
+            to: email, // list of receivers
+            subject: "Verify your email ✔", // Subject line
+            text: `Click on the following link to verify your email: ${verificationLink}`,
+            //  html: "<b>Hello world?</b>", // html body
+        };
+        transporter.sendMail(mailOptions, function (err, info) {
+            if (err)
+                return console.log(err);
+            // console.log(info);
+            return res.status(201).json({
+                message: "User registered, please check your email for verification link",
+            });
+        });
+        // res.status(201).json({
+        //   message: "User registered, please check your email for verification link",
+        // });
     }
     catch (e) {
         return res.status(500).json({ error: "Internal server error!" });

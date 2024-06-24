@@ -15,16 +15,20 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  email     String     @unique
-  name      String?
-  password  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  avatar    String?
-  role      Role       @default(user)
-  Product   Product[]
-  category  Category[]
+  id                         String     @id @default(uuid())
+  email                      String     @unique
+  name                       String?
+  mobile                     String?
+  isVerified                 Boolean?   @default(false)
+  verificationToken          String?
+  verificationTokenExpiresAt DateTime?
+  password                   String
+  createdAt                  DateTime   @default(now())
+  updatedAt                  DateTime   @updatedAt
+  avatar                     String?
+  role                       Role       @default(user)
+  Product                    Product[]
+  category                   Category[]
 }
 
 model Category {

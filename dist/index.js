@@ -12,9 +12,16 @@ const PORT = 5000 || process.env.PORT;
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)({
-    origin: ["http://localhost:5173", "https://groco-nu.vercel.app"],
+    origin: [
+        "http://localhost:5173",
+        "https://groco-nu.vercel.app",
+        "http://localhost:5174",
+    ],
     credentials: true,
 }));
+app.get("/", (req, res) => {
+    res.status(200).json("Hello from server!");
+});
 app.use("/api/v1", routes_1.default);
 app.listen(PORT, () => {
     console.log(`Server running at ${PORT}`);
