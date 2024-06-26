@@ -1,11 +1,11 @@
 import { Role } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
-interface DecodeToken {
-  userId: number;
+interface DecodeToken extends JwtPayload {
+  userId: string;
   role: Role;
   iat: number;
   exp: number;
@@ -15,7 +15,7 @@ interface ExtendedRequest extends Request {
   user?: DecodeToken;
 }
 export const authenticateJWT = (
-  req: ExtendedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {

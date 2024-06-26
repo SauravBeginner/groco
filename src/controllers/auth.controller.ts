@@ -3,61 +3,54 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { base_URL } from "../utils/jwt";
+import { base_URL, client_URL } from "../utils/jwt";
 import nodemailer from "nodemailer";
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
-const emailCredentials = "techx100x@gmail.com";
-const passCredentials = "Tech10x@712103";
 const transporter = nodemailer.createTransport({
-  pool: true,
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true, // use TLS
-  auth: { user: emailCredentials, pass: passCredentials },
+  host: "smtp.ethereal.email",
+  port: 587,
+  auth: {
+    user: "della.bogan@ethereal.email",
+    pass: "wxHwAJcFH5sctUhu2k",
+  },
 });
+
 export const signup = async (req: Request, res: Response) => {
   const { success } = signupInput.safeParse(req.body);
 
   if (!success) {
     return res.status(400).json({ error: "Invalid request body!" });
   }
-  const { name, email, password, role } = req.body;
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-  const tokens: string = crypto.randomUUID();
-  const verificationTokenExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
 
   try {
+    const { name, email, password, role } = req.body;
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const token: string = crypto.randomUUID();
+    const verificationTokenExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+
     const user = await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
         // @ts-ignore
-        verificationToken: tokens,
+        verificationToken: token,
         verificationTokenExpiresAt,
         role,
       },
     });
     console.log(`User created!`);
-    const verificationLink = `${process.env.PROD_SERVER_URL}/verify/${tokens}`;
-
-    // await transporter.sendMail({
-    //   from: '"Groco 👻" <no-reply@groco.email>', // sender address
-    //   to: email, // list of receivers
-    //   subject: "Verify your email ✔", // Subject line
-    //   text: `Click on the following link to verify your email: ${verificationLink}`,
-    //   //  html: "<b>Hello world?</b>", // html body
-    // });
+    const verificationLink = `${client_URL}/verify/${token}`;
 
     const mailOptions = {
       from: '"Groco 👻" <no-reply@groco.email>', // sender address
       to: email, // list of receivers
       subject: "Verify your email ✔", // Subject line
       text: `Click on the following link to verify your email: ${verificationLink}`,
-      //  html: "<b>Hello world?</b>", // html body
+      html: `<b>Click on the following link to verify your email:<a href="${verificationLink}">${verificationLink}</a></b></b>`, // html body
     };
 
     transporter.sendMail(mailOptions, function (err, info) {
@@ -68,10 +61,50 @@ export const signup = async (req: Request, res: Response) => {
           "User registered, please check your email for verification link",
       });
     });
-    // res.status(201).json({
-    //   message: "User registered, please check your email for verification link",
-    // });
   } catch (e) {
+    console.log(e);
+    return res.status(500).json({ error: "Internal server error!" });
+  }
+};
+
+export const verify = async (req: Request, res: Response) => {
+  const { token } = req.params;
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        // @ts-ignore
+        verificationToken: token,
+      },
+    });
+
+    console.log(user);
+    if (!user) {
+      return res.status(404).json({ error: "Invalid Token!" });
+    }
+
+    // @ts-ignore
+    if (user?.isVerified) {
+      return res.status(400).json({ error: "User already verified!" });
+    }
+
+    // @ts-ignore
+    if (user?.verificationTokenExpiresAt < new Date()) {
+      await prisma.user.delete({ where: { id: user.id } });
+      return res.status(403).json({ error: "Verification link expired!" });
+    }
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        // verificationToken: null,
+        // verificationTokenExpiresAt: null,
+        // @ts-ignore
+        isVerified: true,
+      },
+    });
+    return res.status(200).json({ message: "Email verified successfully!" });
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({ error: "Internal server error!" });
   }
 };

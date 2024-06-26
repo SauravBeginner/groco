@@ -29,6 +29,7 @@ model User {
   role                       Role       @default(user)
   Product                    Product[]
   category                   Category[]
+  Cart                       Cart[]
 }
 
 model Category {
@@ -58,8 +59,31 @@ model Product {
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
 
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
+  user     User       @relation(fields: [userId], references: [id])
+  userId   String
+  CartItem CartItem[]
+}
+
+model Cart {
+  id        String     @id @default(uuid())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  Cart      Cart     @relation(fields: [cartId], references: [id])
+  cartId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartId, productId])
 }
 
 enum Role {

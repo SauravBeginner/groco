@@ -21,3 +21,24 @@ export const getUsers = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getProfileDetails = async (req: Request, res: Response) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        //@ts-ignore
+        id: req.user.userId,
+      },
+    });
+
+    return res.status(201).json({
+      message: "Profile details fetched successfully",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Something went wrong!",
+    });
+  }
+};
