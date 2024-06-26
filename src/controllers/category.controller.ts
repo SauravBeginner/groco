@@ -10,7 +10,6 @@ export const addCategory = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Invalid request body!" });
   }
   const { name } = req.body;
-  //@ts-ignore
   const userId = req.user?.userId;
   try {
     const category = await prisma.category.create({

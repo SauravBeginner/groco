@@ -23,7 +23,6 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     if (!thumbNailPath)
         return res.status(400).json({ error: "Thumbnail file is required!" });
     const { name, description, price, countInStock, categoryId } = req.body;
-    //@ts-ignore
     const userId = (_b = req.user) === null || _b === void 0 ? void 0 : _b.userId;
     try {
         const thumbNailUpload = yield (0, cloudinary_1.uploadCloudinary)(thumbNailPath);
@@ -71,7 +70,6 @@ const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     // }
     const productId = req.params.id;
     const thumbNailPath = (_c = req.file) === null || _c === void 0 ? void 0 : _c.path;
-    //@ts-ignore
     const userId = (_d = req.user) === null || _d === void 0 ? void 0 : _d.userId;
     const { name, description, price, countInStock, categoryId } = req.body;
     try {

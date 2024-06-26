@@ -36,11 +36,7 @@ export const authenticateJWT = (
   }
 };
 
-export const authAdmin = (
-  req: ExtendedRequest,
-  res: Response,
-  next: NextFunction
-) => {
+export const authAdmin = (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.user?.role !== "admin") {
       return res.status(403).json({ error: "You are not admin!" });

@@ -26,8 +26,7 @@ export const getProfileDetails = async (req: Request, res: Response) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        //@ts-ignore
-        id: req.user.userId,
+        id: req.user?.userId,
       },
     });
 

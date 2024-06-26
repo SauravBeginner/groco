@@ -20,7 +20,6 @@ const addCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         return res.status(400).json({ error: "Invalid request body!" });
     }
     const { name } = req.body;
-    //@ts-ignore
     const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.userId;
     try {
         const category = yield prisma.category.create({

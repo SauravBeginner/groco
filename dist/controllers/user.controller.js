@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUsers = void 0;
+exports.getProfileDetails = exports.getUsers = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,3 +32,24 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getUsers = getUsers;
+const getProfileDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const user = yield prisma.user.findUnique({
+            where: {
+                id: (_a = req.user) === null || _a === void 0 ? void 0 : _a.userId,
+            },
+        });
+        return res.status(201).json({
+            message: "Profile details fetched successfully",
+            user,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: "Something went wrong!",
+        });
+    }
+});
+exports.getProfileDetails = getProfileDetails;

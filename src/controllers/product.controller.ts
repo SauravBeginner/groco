@@ -17,7 +17,6 @@ export const addProduct = async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Thumbnail file is required!" });
   const { name, description, price, countInStock, categoryId } = req.body;
 
-  //@ts-ignore
   const userId = req.user?.userId;
   try {
     const thumbNailUpload = await uploadCloudinary(thumbNailPath);
@@ -68,7 +67,6 @@ export const editProduct = async (req: Request, res: Response) => {
   const productId = req.params.id;
   const thumbNailPath = req.file?.path;
 
-  //@ts-ignore
   const userId = req.user?.userId;
   const { name, description, price, countInStock, categoryId } = req.body;
 

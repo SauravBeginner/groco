@@ -36,7 +36,6 @@ export const signup = async (req: Request, res: Response) => {
         name,
         email,
         password: hashedPassword,
-        // @ts-ignore
         verificationToken: token,
         verificationTokenExpiresAt,
         role,
@@ -72,7 +71,7 @@ export const verify = async (req: Request, res: Response) => {
   try {
     const user = await prisma.user.findFirst({
       where: {
-        // @ts-ignore
+        // @
         verificationToken: token,
       },
     });
@@ -82,13 +81,14 @@ export const verify = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Invalid Token!" });
     }
 
-    // @ts-ignore
     if (user?.isVerified) {
       return res.status(400).json({ error: "User already verified!" });
     }
 
-    // @ts-ignore
-    if (user?.verificationTokenExpiresAt < new Date()) {
+    if (
+      user?.verificationTokenExpiresAt &&
+      user?.verificationTokenExpiresAt < new Date()
+    ) {
       await prisma.user.delete({ where: { id: user.id } });
       return res.status(403).json({ error: "Verification link expired!" });
     }
@@ -98,7 +98,6 @@ export const verify = async (req: Request, res: Response) => {
       data: {
         // verificationToken: null,
         // verificationTokenExpiresAt: null,
-        // @ts-ignore
         isVerified: true,
       },
     });
