@@ -12,7 +12,7 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, ListBulletIcon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   FunnelIcon,
@@ -20,10 +20,10 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-// import { products } from "../data/dummy";
-import { ProductCard } from "../components/ProductCard";
-import axios from "axios";
-import { base_URL } from "../utils";
+import { ProductCard } from "../components";
+import { useProducts } from "../hooks/useProducts";
+import { ProductSkeleton } from "../loader/ProductSkeleton";
+import withScrollTop from "../hoc/withScrollTop";
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
   { name: "Best Rating", href: "#", current: false },
@@ -76,24 +76,18 @@ const filters = [
   },
 ];
 
-// @ts-ignore
-function classNames(...classes) {
+function classNames(...classes: (string | undefined | false | null)[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function AllProducts() {
+const AllProducts = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [isGridView, setIsGridView] = useState(true);
+  const { products, loading } = useProducts();
 
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(`${base_URL}/product/products`, { withCredentials: true })
-      .then((response: any) => setProducts(response.data.products))
-      .catch((err: any) => {
-        console.log(err);
-      });
-  }, []);
+  const toggleView = () => {
+    setIsGridView(!isGridView);
+  };
   return (
     <div className="bg-white scrollbar-hide">
       {/* Mobile filter dialog */}
@@ -271,9 +265,14 @@ export default function AllProducts() {
             <button
               type="button"
               className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
+              onClick={toggleView}
             >
               <span className="sr-only">View grid</span>
-              <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+              {isGridView ? (
+                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+              ) : (
+                <ListBulletIcon className="h-5 w-5" aria-hidden="true" />
+              )}
             </button>
             <button
               type="button"
@@ -367,13 +366,23 @@ export default function AllProducts() {
 
             {/* Product grid */}
             <div className="lg:col-span-3 flex flex-wrap gap-4 justify-center">
-              {products.map((product: any) => (
-                <ProductCard key={product?.id} product={product} />
-              ))}
+              {loading
+                ? Array.from({ length: 6 }).map((_, index) => (
+                    <ProductSkeleton key={index} />
+                  ))
+                : products.map((product: any) => (
+                    <ProductCard
+                      key={product?.id}
+                      product={product}
+                      isGridView={isGridView}
+                    />
+                  ))}
             </div>
           </div>
         </section>
       </main>
     </div>
   );
-}
+};
+
+export default withScrollTop(AllProducts);

@@ -1,24 +1,16 @@
-import axios from "axios";
 import { Star, ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { base_URL } from "../utils";
+import { useProduct } from "../hooks/useProducts";
+import { ProductDetailsSkeleton } from "../loader/ProductDetailsSkeleton";
+import { SamllButton } from "../components";
+import withScrollTop from "../hoc/withScrollTop";
 
 const ProductDetails = () => {
   const { id } = useParams();
 
-  const [product, setProduct] = useState<any>(null);
+  const { product, loading } = useProduct(id || "");
 
-  useEffect(() => {
-    axios
-      .get(`${base_URL}/product/product-details/${id}`)
-      .then((response) => {
-        console.log(response);
-        setProduct(response.data?.product);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
+  if (loading) return <ProductDetailsSkeleton />;
   return (
     <section className="overflow-hidden">
       <div className="mx-auto max-w-5xl px-5 py-24">
@@ -27,7 +19,7 @@ const ProductDetails = () => {
             alt="Nike Air Max 21A"
             className="h-64 w-full rounded object-cover lg:h-96"
             loading="lazy"
-            src={product?.thumbNail || "../images/hero-veg-2.0.jpg"}
+            src={product?.thumbNail}
           />
           <div className="mt-6 w-full lg:mt-0 lg:w-1/2 lg:pl-10">
             <h2 className="text-sm font-semibold tracking-widest text-gray-500">
@@ -77,12 +69,7 @@ const ProductDetails = () => {
               <span className="title-font text-xl font-bold text-gray-900">
                 ₹47,199
               </span>
-              <button
-                type="button"
-                className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-              >
-                Add to Cart
-              </button>
+              <SamllButton type="button">Add to Cart</SamllButton>
             </div>
           </div>
         </div>
@@ -91,4 +78,4 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+export default withScrollTop(ProductDetails);

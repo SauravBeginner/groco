@@ -1,6 +1,7 @@
-import Heading from "./Heading";
+import { Heading } from "./Heading";
+import { SamllButton } from "./SmallButton";
 
-const Featured = () => {
+export const Featured = () => {
   return (
     <section className="py-8" id="features">
       <Heading>
@@ -21,12 +22,9 @@ const Featured = () => {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus,
             nam.
           </p>
-          <a
-            href="#"
-            className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-          >
-            Read more
-          </a>
+          <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
+            Read More
+          </SamllButton>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg text-center">
           <img
@@ -39,12 +37,9 @@ const Featured = () => {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus,
             nam.
           </p>
-          <a
-            href="#"
-            className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-          >
-            Read more
-          </a>
+          <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
+            Read More
+          </SamllButton>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg text-center">
           <img
@@ -57,16 +52,11 @@ const Featured = () => {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus,
             nam.
           </p>
-          <a
-            href="#"
-            className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-          >
-            Read more
-          </a>
+          <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
+            Read More
+          </SamllButton>
         </div>
       </div>
     </section>
   );
 };
-
-export default Featured;

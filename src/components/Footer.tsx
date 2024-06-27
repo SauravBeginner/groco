@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <section className="py-8 bg-white" id="footer">
+    <section className="py-8 bg-gray-100" id="footer">
       <div className="grid gap-4 md:grid-cols-4">
         <div className="text-center md:text-left p-4">
           <h3 className="text-2xl text-gray-800 mb-4">

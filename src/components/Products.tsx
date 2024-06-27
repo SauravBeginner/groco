@@ -1,9 +1,10 @@
-import Heading from "./Heading";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { products } from "../data/dummy";
 import { useNavigate } from "react-router-dom";
+import { Heading } from "./Heading";
+import { SamllButton } from "./SmallButton";
 
 export const Products = () => {
   const navigate = useNavigate();
@@ -47,9 +48,9 @@ export const Products = () => {
         className="mySwiper"
       >
         <div className="swiper-wrapper flex">
-          {products.map((product) => (
+          {products.map((product: any) => (
             <SwiperSlide
-              key={product.id}
+              key={product?.id}
               className="swiper-slide p-6 bg-white rounded-lg shadow-lg text-center"
               onClick={() => navigate(`/product/${product.id}`)}
             >
@@ -65,7 +66,7 @@ export const Products = () => {
                   <span
                     key={index}
                     className={`material-symbols-outlined ${
-                      index < Math.floor(product.rating)
+                      index < Math.floor(product?.rating)
                         ? "text-orange-500"
                         : index < product.rating
                         ? "text-orange-500"
@@ -80,12 +81,9 @@ export const Products = () => {
                   </span>
                 ))}
               </div>
-              <a
-                href="#"
-                className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-              >
+              <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
                 Add to Cart
-              </a>
+              </SamllButton>
             </SwiperSlide>
           ))}
         </div>

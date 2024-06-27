@@ -1,4 +1,5 @@
-import Heading from "./Heading";
+import { Heading } from "./Heading";
+import { SamllButton } from "./SmallButton";
 
 export const Categories = () => {
   return (
@@ -18,12 +19,9 @@ export const Categories = () => {
           />
           <h3 className="text-2xl text-gray-800 mb-4">Vegetables</h3>
           <p className="text-gray-600 mb-4">Upto 30% Off</p>
-          <a
-            href="#"
-            className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-          >
+          <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
             Shop Now
-          </a>
+          </SamllButton>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg text-center">
           <img
@@ -33,12 +31,9 @@ export const Categories = () => {
           />
           <h3 className="text-2xl text-gray-800 mb-4">Fresh Fruits</h3>
           <p className="text-gray-600 mb-4">Upto 25% Off</p>
-          <a
-            href="#"
-            className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-          >
+          <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
             Shop Now
-          </a>
+          </SamllButton>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg text-center">
           <img
@@ -48,12 +43,9 @@ export const Categories = () => {
           />
           <h3 className="text-2xl text-gray-800 mb-4">Dairy Product</h3>
           <p className="text-gray-600 mb-4">Upto 40% Off</p>
-          <a
-            href="#"
-            className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-          >
+          <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
             Shop Now
-          </a>
+          </SamllButton>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg text-center">
           <img
@@ -63,12 +55,9 @@ export const Categories = () => {
           />
           <h3 className="text-2xl text-gray-800 mb-4">Fresh Meat</h3>
           <p className="text-gray-600 mb-4">Upto 15% Off</p>
-          <a
-            href="#"
-            className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-          >
+          <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
             Shop Now
-          </a>
+          </SamllButton>
         </div>
       </div>
     </section>

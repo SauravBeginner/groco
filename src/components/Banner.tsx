@@ -1,4 +1,6 @@
-const Banner = () => {
+import { SamllButton } from "./SmallButton";
+
+export const Banner = () => {
   return (
     <section
       className="home flex justify-center items-center bg-cover bg-center py-40"
@@ -14,15 +16,10 @@ const Banner = () => {
           This Website Is Designed By Mr. Kunal Chandra Das. This Is My
           Portfolio Professional Project No-1
         </p>
-        <a
-          href="#"
-          className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-        >
+        <SamllButton className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-black px-8 py-2 rounded-lg">
           Shop Now
-        </a>
+        </SamllButton>
       </div>
     </section>
   );
 };
-
-export default Banner;

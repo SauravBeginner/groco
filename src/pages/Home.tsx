@@ -1,10 +1,13 @@
-import Banner from "../components/Banner";
-import Featured from "../components/Featured";
-import { Products } from "../components/Products";
-import { Categories } from "../components/Categories";
-import { Herosection } from "../components/Herosection";
-import { Reviews } from "../components/Reviews";
-import { Blogs } from "../components/Blogs";
+import {
+  Banner,
+  Blogs,
+  Categories,
+  Featured,
+  Herosection,
+  Products,
+  Reviews,
+} from "../components";
+import withScrollTop from "../hoc/withScrollTop";
 
 const Home = () => {
   return (
@@ -22,4 +25,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withScrollTop(Home);
