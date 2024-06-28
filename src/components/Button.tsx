@@ -1,5 +1,3 @@
-import { useId } from "react";
-
 export interface ButtonProps {
   className?: string;
   type?: "button" | "submit" | "reset";

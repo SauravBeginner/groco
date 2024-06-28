@@ -1,5 +1,3 @@
-import React from "react";
-
 export const OrderSkeleton = () => {
   return (
     <div className="space-y-1 px-2 py-4 animate-pulse">
