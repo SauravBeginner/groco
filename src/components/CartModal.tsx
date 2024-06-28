@@ -4,7 +4,7 @@ import { Button } from "./Button";
 import { forwardRef } from "react";
 import { useFetchCartQuery } from "../redux/apiSlice";
 
-export const CartModal = forwardRef<HTMLDivElement>((props, ref) => {
+export const CartModal = forwardRef<HTMLDivElement>((_, ref) => {
   const { data: item, isLoading } = useFetchCartQuery();
 
   const navigate = useNavigate();
