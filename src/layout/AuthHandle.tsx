@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { publicAxios } from "../utils/axiosClient";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../redux/store";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
 import { fetchUserDetails } from "../redux/authSlice";
 
 interface AuthHandleProps {

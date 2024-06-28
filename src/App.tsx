@@ -1,7 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
-import { Navbar, Footer } from "./components";
 import AuthHandle from "./layout/AuthHandle";
 import AuthLayout from "./layout/AuthLayout";
 

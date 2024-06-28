@@ -10,7 +10,14 @@ export interface Product {
   categoryId: string;
   userId: string;
 }
+export interface Item {
+  product: Product;
+}
 
+export interface Items {
+  message: string;
+  products: Product[];
+}
 export interface CartItem {
   id: string;
   product: Product;

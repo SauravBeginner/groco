@@ -25,7 +25,9 @@ export const fetchUserDetails = createAsyncThunk(
       return response.data.user;
     } catch (error: any) {
       if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
+        return rejectWithValue(
+          error.response.data.error || error.response.data
+        );
       } else {
         return rejectWithValue("An unknown error occurred!");
       }
@@ -47,7 +49,11 @@ export const login = createAsyncThunk(
       return response.data.user;
     } catch (error: any) {
       if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
+        // console.log(error.response.data.error);
+
+        return rejectWithValue(
+          error.response.data.error || error.response.data
+        );
       } else {
         return rejectWithValue("An unknown error occurred!");
       }
@@ -68,7 +74,9 @@ export const logout = createAsyncThunk(
       );
     } catch (error: any) {
       if (error.response && error.response.data) {
-        return rejectWithValue(error.response.data);
+        return rejectWithValue(
+          error.response.data.error || error.response.data
+        );
       } else {
         return rejectWithValue("An unknown error occurred!");
       }

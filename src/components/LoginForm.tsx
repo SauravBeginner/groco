@@ -17,8 +17,8 @@ export const LoginForm = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const error = useSelector((state: RootState) => state.auth?.error);
-
+  const errorMesg = useSelector((state: RootState) => state.auth?.error);
+  // console.log(errorMesg);
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await dispatch(login(credentials));
@@ -64,7 +64,7 @@ export const LoginForm = () => {
 
           <Button type="submit">Login</Button>
         </form>
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {errorMesg && <p className="text-sm text-red-500">{errorMesg || ""}</p>}
       </div>
     </div>
   );

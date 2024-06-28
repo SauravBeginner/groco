@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogPanel,
@@ -21,9 +21,9 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { ProductCard } from "../components";
-import { useProducts } from "../hooks/useProducts";
 import { ProductSkeleton } from "../loader/ProductSkeleton";
 import withScrollTop from "../hoc/withScrollTop";
+import { useFetchProductsQuery } from "../redux/apiSlice";
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
   { name: "Best Rating", href: "#", current: false },
@@ -83,11 +83,16 @@ function classNames(...classes: (string | undefined | false | null)[]): string {
 const AllProducts = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [isGridView, setIsGridView] = useState(true);
-  const { products, loading } = useProducts();
 
   const toggleView = () => {
     setIsGridView(!isGridView);
   };
+
+  const { data: items, isLoading } = useFetchProductsQuery();
+
+  const products = items?.products;
+
+  console.log(items);
   return (
     <div className="bg-white scrollbar-hide">
       {/* Mobile filter dialog */}
@@ -366,11 +371,11 @@ const AllProducts = () => {
 
             {/* Product grid */}
             <div className="lg:col-span-3 flex flex-wrap gap-4 justify-center">
-              {loading
+              {isLoading
                 ? Array.from({ length: 6 }).map((_, index) => (
                     <ProductSkeleton key={index} />
                   ))
-                : products.map((product: any) => (
+                : products?.map((product: any) => (
                     <ProductCard
                       key={product?.id}
                       product={product}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaCartPlus, FaRegUserCircle, FaSearch } from "react-icons/fa";
 import { CartModal } from "./CartModal";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import { SamllButton } from "./SmallButton";
@@ -14,7 +14,7 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigate = useNavigate();
-
+  const { pathname } = useLocation();
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth?.isAuthenticated
   );
@@ -65,7 +65,7 @@ export const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutSide);
       document.removeEventListener("mousedown", handleClick2OutSide);
     };
-  }, []);
+  }, [pathname]);
 
   const dispatch = useDispatch<AppDispatch>();
 

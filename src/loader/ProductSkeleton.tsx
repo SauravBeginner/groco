@@ -1,6 +1,6 @@
 export const ProductSkeleton = () => {
   return (
-    <div className="p-6 mx-6 bg-white rounded-lg shadow-lg text-center animate-pulse mb-4 lg:w-1/4">
+    <div className="p-6 mx-6 bg-white rounded-lg shadow-lg text-center animate-pulse mb-4 lg:w-1/4 md:w-1/3">
       <div className="h-32 bg-gray-300 mb-4"></div>
       <div className="px-6 py-4">
         <div className="h-3 bg-gray-300 mb-2"></div>

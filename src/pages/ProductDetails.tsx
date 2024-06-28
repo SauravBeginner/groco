@@ -1,16 +1,32 @@
 import { Star, ChevronDown } from "lucide-react";
 import { useParams } from "react-router-dom";
-import { useProduct } from "../hooks/useProducts";
 import { ProductDetailsSkeleton } from "../loader/ProductDetailsSkeleton";
 import { SamllButton } from "../components";
 import withScrollTop from "../hoc/withScrollTop";
+import {
+  useAddToCartMutation,
+  useFetchProductDetailsQuery,
+} from "../redux/apiSlice";
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  if (!id) {
+    return;
+  }
+  const { data: item, isLoading } = useFetchProductDetailsQuery(id);
+  const [addToCart] = useAddToCartMutation();
 
-  const { product, loading } = useProduct(id || "");
+  const handleAddToCart = async () => {
+    try {
+      await addToCart({ productId: id, quantity: 1 });
+    } catch (err) {
+      console.error("Failed to add to cart: ", err);
+    }
+  };
+  if (isLoading) return <ProductDetailsSkeleton />;
 
-  if (loading) return <ProductDetailsSkeleton />;
+  const product = item?.product;
+
   return (
     <section className="overflow-hidden">
       <div className="mx-auto max-w-5xl px-5 py-24">
@@ -69,7 +85,9 @@ const ProductDetails = () => {
               <span className="title-font text-xl font-bold text-gray-900">
                 ₹47,199
               </span>
-              <SamllButton type="button">Add to Cart</SamllButton>
+              <SamllButton type="button" onClick={handleAddToCart}>
+                Add to Cart
+              </SamllButton>
             </div>
           </div>
         </div>
