@@ -4,7 +4,7 @@ import { Button } from "./Button";
 import { forwardRef } from "react";
 import { useFetchCartQuery } from "../redux/apiSlice";
 
-export const CartModal = forwardRef<HTMLDivElement>((_, ref) => {
+export const CartModal = forwardRef<HTMLDivElement>((props, ref) => {
   const { data: item, isLoading } = useFetchCartQuery();
 
   const navigate = useNavigate();
@@ -42,8 +42,19 @@ export const CartModal = forwardRef<HTMLDivElement>((_, ref) => {
       </div>
     );
   }
+
+  if (!item) {
+    return (
+      <div
+        ref={ref}
+        className="absolute top-20 right-0 w-72 p-4 bg-white rounded-lg shadow-lg border-t"
+      >
+        <h1 className="text-center">No items in Cart!</h1>
+      </div>
+    ); // Handle case when item is not available
+  }
+
   const { cart, totalPrice } = item;
-  console.log(cart, totalPrice);
 
   return (
     <div
