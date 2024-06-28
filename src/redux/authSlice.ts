@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { publicAxios } from "../utils/axiosClient";
+import { apiSlice } from "./apiSlice";
 
 interface AuthState {
   user: any;
@@ -63,7 +64,7 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk(
   "auth/logout",
-  async (_, { rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
       await publicAxios.post(
         "/auth/logout",
@@ -72,6 +73,7 @@ export const logout = createAsyncThunk(
           withCredentials: true,
         }
       );
+      dispatch(apiSlice.util.invalidateTags(["Cart"]));
     } catch (error: any) {
       if (error.response && error.response.data) {
         return rejectWithValue(
