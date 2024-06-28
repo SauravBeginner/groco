@@ -1,4 +1,4 @@
-import { Heart, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import withScrollTop from "../hoc/withScrollTop";
 import { useFetchCartQuery } from "../redux/apiSlice";
 import { CartSkeleton } from "../loader/CartSkeleton";
