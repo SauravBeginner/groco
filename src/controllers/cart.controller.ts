@@ -3,9 +3,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 
-import { base_URL, client_URL } from "../utils/jwt";
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
 export const getUserCart = async (req: Request, res: Response) => {
   try {
@@ -28,10 +26,20 @@ export const getUserCart = async (req: Request, res: Response) => {
         message: "Cart not found!",
       });
     }
-
+    const totalPrice = cart.items.reduce(
+      (total, item) =>
+        total + parseFloat(item?.product?.price) * item?.quantity,
+      0
+    );
+    const totalQuantity = cart.items.reduce(
+      (total, item) => total + item?.quantity,
+      0
+    );
     return res.status(200).json({
       messgae: "Cart fetched successfully!",
       cart,
+      totalPrice,
+      totalQuantity,
     });
   } catch (error) {
     console.log(error);
@@ -94,11 +102,11 @@ export const addToCart = async (req: Request, res: Response) => {
 
 export const cartItemUpdate = async (req: Request, res: Response) => {
   try {
-    const { itemId, quantity } = req.body;
+    const { itemId, productId, quantity } = req.body;
     const userId = req.user?.userId;
 
     const cartItem = await prisma.cartItem.update({
-      where: { id: itemId },
+      where: { id: itemId, productId },
       data: { quantity },
     });
     return res.status(201).json({
@@ -115,7 +123,7 @@ export const cartItemUpdate = async (req: Request, res: Response) => {
 
 export const cartItemDelete = async (req: Request, res: Response) => {
   try {
-    const { itemId, quantity } = req.body;
+    const { itemId } = req.body;
     const userId = req.user?.userId;
 
     const cartItem = await prisma.cartItem.delete({
