@@ -2,10 +2,13 @@ import { Trash } from "lucide-react";
 import withScrollTop from "../hoc/withScrollTop";
 import { useClearCartMutation, useFetchCartQuery } from "../redux/apiSlice";
 import { CartSkeleton } from "../loader/CartSkeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteModal from "../components/DeleteModal";
 import { CartImes } from "../components/CartImes";
 import { PriceDetails } from "../components/PriceDetails";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/rootReducer";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { data: item, isLoading } = useFetchCartQuery();
@@ -14,6 +17,15 @@ const Cart = () => {
   const [msg, setMsg] = useState("");
   const [clearCart] = useClearCartMutation();
 
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth?.isAuthenticated
+  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login", { replace: true });
+    }
+  }, [isAuthenticated]);
   const handleClearCart = async () => {
     try {
       await clearCart(undefined);
