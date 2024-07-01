@@ -154,7 +154,7 @@ const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.clearCookie("token", {
             httpOnly: true,
-            sameSite: "strict",
+            //   sameSite: "strict",
         });
         return res.status(200).json({ message: "Logged out successully!" });
     }

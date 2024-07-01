@@ -16,6 +16,7 @@ app.use((0, cors_1.default)({
         "http://localhost:5173",
         "https://groco-nu.vercel.app",
         "http://localhost:5174",
+        "https://groco.tech10x.online",
     ],
     credentials: true,
 }));
