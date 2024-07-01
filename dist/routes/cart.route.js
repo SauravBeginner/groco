@@ -7,5 +7,6 @@ const router = (0, express_1.Router)();
 router.get("/get", authMiddleware_1.authenticateJWT, cart_controller_1.getUserCart);
 router.post("/add", authMiddleware_1.authenticateJWT, cart_controller_1.addToCart);
 router.patch("/update", authMiddleware_1.authenticateJWT, cart_controller_1.cartItemUpdate);
-router.delete("/delte", authMiddleware_1.authenticateJWT, cart_controller_1.cartItemDelete);
+router.delete("/delete", authMiddleware_1.authenticateJWT, cart_controller_1.cartItemDelete);
+router.delete("/clear-cart", authMiddleware_1.authenticateJWT, cart_controller_1.clearUserCart);
 exports.default = router;

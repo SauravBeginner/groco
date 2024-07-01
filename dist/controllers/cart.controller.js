@@ -10,12 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cartItemDelete = exports.cartItemUpdate = exports.addToCart = exports.getUserCart = void 0;
+exports.clearUserCart = exports.cartItemDelete = exports.cartItemUpdate = exports.addToCart = exports.getUserCart = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 const getUserCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _a, _b, _c;
     try {
         const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.userId;
         const cart = yield prisma.cart.findFirst({
@@ -35,9 +34,13 @@ const getUserCart = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 message: "Cart not found!",
             });
         }
+        const totalPrice = (_b = cart === null || cart === void 0 ? void 0 : cart.items) === null || _b === void 0 ? void 0 : _b.reduce((total, item) => { var _a; return total + parseFloat((_a = item === null || item === void 0 ? void 0 : item.product) === null || _a === void 0 ? void 0 : _a.price) * (item === null || item === void 0 ? void 0 : item.quantity); }, 0);
+        const totalQuantity = (_c = cart === null || cart === void 0 ? void 0 : cart.items) === null || _c === void 0 ? void 0 : _c.reduce((total, item) => total + (item === null || item === void 0 ? void 0 : item.quantity), 0);
         return res.status(200).json({
             messgae: "Cart fetched successfully!",
             cart,
+            totalPrice,
+            totalQuantity,
         });
     }
     catch (error) {
@@ -49,10 +52,10 @@ const getUserCart = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getUserCart = getUserCart;
 const addToCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
+    var _d;
     try {
         const { productId, quantity } = req.body;
-        const userId = (_b = req.user) === null || _b === void 0 ? void 0 : _b.userId;
+        const userId = (_d = req.user) === null || _d === void 0 ? void 0 : _d.userId;
         let cart = yield prisma.cart.findFirst({
             where: {
                 userId,
@@ -99,12 +102,11 @@ const addToCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.addToCart = addToCart;
 const cartItemUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c;
     try {
-        const { itemId, quantity } = req.body;
-        const userId = (_c = req.user) === null || _c === void 0 ? void 0 : _c.userId;
+        const { itemId, productId, quantity } = req.body;
+        // const userId = req.user?.userId;
         const cartItem = yield prisma.cartItem.update({
-            where: { id: itemId },
+            where: { id: itemId, productId },
             data: { quantity },
         });
         return res.status(201).json({
@@ -121,10 +123,10 @@ const cartItemUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.cartItemUpdate = cartItemUpdate;
 const cartItemDelete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _d;
+    var _e;
     try {
-        const { itemId, quantity } = req.body;
-        const userId = (_d = req.user) === null || _d === void 0 ? void 0 : _d.userId;
+        const { itemId } = req.body;
+        const userId = (_e = req.user) === null || _e === void 0 ? void 0 : _e.userId;
         const cartItem = yield prisma.cartItem.delete({
             where: { id: itemId },
         });
@@ -141,3 +143,33 @@ const cartItemDelete = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.cartItemDelete = cartItemDelete;
+const clearUserCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _f;
+    try {
+        const userId = (_f = req.user) === null || _f === void 0 ? void 0 : _f.userId;
+        if (!userId) {
+            return res.status(400).json({ error: "User ID is required" });
+        }
+        const cart = yield prisma.cart.findFirst({
+            where: {
+                userId,
+            },
+        });
+        if (!cart) {
+            return res.status(404).json({ error: "Cart not found" });
+        }
+        yield prisma.cartItem.deleteMany({
+            where: { cartId: cart === null || cart === void 0 ? void 0 : cart.id },
+        });
+        return res.status(201).json({
+            messgae: "Cart cleared successfully!",
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: "Something went wrong!",
+        });
+    }
+});
+exports.clearUserCart = clearUserCart;

@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.verify = exports.signup = void 0;
+exports.logout = exports.login = exports.verify = exports.signup = void 0;
 const groco_common_1 = require("@10xcoder/groco-common");
 const client_1 = require("@prisma/client");
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -150,3 +150,16 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            sameSite: "strict",
+        });
+        return res.status(200).json({ message: "Logged out successully!" });
+    }
+    catch (error) {
+        return res.status(500).json({ error: "Internal server error!" });
+    }
+});
+exports.logout = logout;

@@ -26,12 +26,12 @@ export const getUserCart = async (req: Request, res: Response) => {
         message: "Cart not found!",
       });
     }
-    const totalPrice = cart.items.reduce(
+    const totalPrice = cart?.items?.reduce(
       (total, item) =>
         total + parseFloat(item?.product?.price) * item?.quantity,
       0
     );
-    const totalQuantity = cart.items.reduce(
+    const totalQuantity = cart?.items?.reduce(
       (total, item) => total + item?.quantity,
       0
     );
