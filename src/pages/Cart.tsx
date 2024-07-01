@@ -35,7 +35,7 @@ const Cart = () => {
             Shopping Cart
           </h1>
           {item?.totalQuantity !== 0 && (
-            <div className="ml-6 flex text-sm">
+            <div className="ml-6 p-2 rounded-lg flex text-sm bg-red-600 hover:bg-red-700 text-white">
               <button
                 type="button"
                 className="flex items-center space-x-1 px-2 py-1 pl-0"
@@ -44,9 +44,9 @@ const Cart = () => {
                   setMsg("Are you sure you want to clear the cart?");
                 }}
               >
-                <Trash size={24} className="text-red-500" />
-                <span className="text-xs font-medium text-red-500">
-                  Remove All Cart Items
+                <Trash size={24} className="text-white" />
+                <span className="text-xs font-bold text-white">
+                  Clear All Cart Items
                 </span>
               </button>
             </div>

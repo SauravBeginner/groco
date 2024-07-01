@@ -54,7 +54,7 @@ export const CartModal = forwardRef<HTMLDivElement>((_, ref) => {
     );
   }
 
-  if (item?.totalQuantity === 0) {
+  if (item?.totalQuantity === 0 || !item) {
     return (
       <div
         ref={ref}
@@ -101,7 +101,7 @@ export const CartModal = forwardRef<HTMLDivElement>((_, ref) => {
               </div>
             </div>
             <span
-              className="material-symbols-outlined text-2xl text-gray-800 cursor-pointer hover:text-green-500"
+              className="material-symbols-outlined text-2xl text-gray-800 cursor-pointer hover:text-red-500"
               onClick={() => handleDeleteCartItem(cartItem?.id)}
             >
               <MdDelete />

@@ -16,4 +16,4 @@ export * from "./Products";
 export * from "./Categories";
 export * from "./Herosection";
 export * from "./Reviews";
-export * from "./Blogs";
+export * from "../pages/Blogs";

@@ -7,6 +7,8 @@ import AuthLayout from "./layout/AuthLayout";
 const Home = React.lazy(() => import("./pages/Home"));
 const ProductDetails = React.lazy(() => import("./pages/ProductDetails"));
 const AllProducts = React.lazy(() => import("./pages/AllProducts"));
+const Blogs = React.lazy(() => import("./pages/Blogs"));
+
 const Signup = React.lazy(() => import("./pages/Signup"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Verification = React.lazy(() => import("./pages/Verification"));
@@ -38,6 +40,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/verify/:token" element={<Verification />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/blogs" element={<Blogs />} />
           </Route>
         </Routes>
       </Suspense>

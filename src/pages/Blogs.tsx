@@ -1,15 +1,16 @@
-import { Heading } from "./Heading";
+import { Button } from "../components";
+import { Heading } from "../components/Heading";
 
-export const Blogs = () => {
+const Blogs = () => {
   return (
-    <section className="py-8" id="blogs">
+    <section className="p-8" id="blogs">
       <Heading>
         Our
         <span className="bg-green-500 text-white px-4 py-2 heading">Blogs</span>
       </Heading>
 
       <div className="grid gap-8 md:grid-cols-3">
-        {Array.from({ length: 3 }).map((_, index) => (
+        {Array.from({ length: 9 }).map((_, index) => (
           <div
             className="bg-white rounded-lg shadow-lg overflow-hidden"
             key={index}
@@ -43,12 +44,9 @@ export const Blogs = () => {
                 dolor sit amet consectetur adipisicing elit. Qui omnis ullam
                 dolores temporibus natus id accusantium.
               </p>
-              <a
-                href="#"
-                className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg"
-              >
+              <Button className="btn bg-none border border-gray-800 text-gray-800 hover:bg-green-500 hover:text-white px-8 py-2 rounded-lg">
                 Read More
-              </a>
+              </Button>
             </div>
           </div>
         ))}
@@ -56,3 +54,5 @@ export const Blogs = () => {
     </section>
   );
 };
+
+export default Blogs;

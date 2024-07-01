@@ -113,7 +113,7 @@ export const Navbar = () => {
         </Link>
 
         <Link
-          to="/"
+          to="/blogs"
           className="text-lg text-gray-800 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg"
         >
           Blogs

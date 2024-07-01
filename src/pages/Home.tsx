@@ -1,6 +1,5 @@
 import {
   Banner,
-  Blogs,
   Categories,
   Featured,
   Herosection,
@@ -19,7 +18,6 @@ const Home = () => {
         <Categories />
         <Herosection />
         <Reviews />
-        <Blogs />
       </section>
     </div>
   );

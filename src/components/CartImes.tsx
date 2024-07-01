@@ -34,7 +34,7 @@ export const CartImes = ({ cartItem }: any) => {
             />
           </div>
           <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
-            <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+            <div className="relative pr-9 sm:gap-x-6 sm:pr-0 justify-between flex">
               <div>
                 <div className="flex justify-between">
                   <h3 className="text-sm">
@@ -70,6 +70,13 @@ export const CartImes = ({ cartItem }: any) => {
                     {cartItem?.product?.price} % off
                   </p>
                 </div>
+              </div>
+
+              <div className="flex-col items-center justify-center text-center">
+                <dt className="text-base font-bold text-gray-900">Price</dt>
+                <dd className="text-base font-medium text-gray-900">
+                  ₹ {cartItem?.quantity * cartItem?.product?.price} /-
+                </dd>
               </div>
             </div>
           </div>
