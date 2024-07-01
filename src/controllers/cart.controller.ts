@@ -103,7 +103,7 @@ export const addToCart = async (req: Request, res: Response) => {
 export const cartItemUpdate = async (req: Request, res: Response) => {
   try {
     const { itemId, productId, quantity } = req.body;
-    const userId = req.user?.userId;
+    // const userId = req.user?.userId;
 
     const cartItem = await prisma.cartItem.update({
       where: { id: itemId, productId },
@@ -132,6 +132,36 @@ export const cartItemDelete = async (req: Request, res: Response) => {
     return res.status(201).json({
       messgae: "Cart Item deleted successfully!",
       cartItem,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Something went wrong!",
+    });
+  }
+};
+
+export const clearUserCart = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.userId;
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+
+    const cart = await prisma.cart.findFirst({
+      where: {
+        userId,
+      },
+    });
+
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found" });
+    }
+    await prisma.cartItem.deleteMany({
+      where: { cartId: cart?.id },
+    });
+    return res.status(201).json({
+      messgae: "Cart cleared successfully!",
     });
   } catch (error) {
     console.log(error);
