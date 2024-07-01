@@ -1,4 +1,4 @@
-import { Star, ChevronDown } from "lucide-react";
+import { Star } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { ProductDetailsSkeleton } from "../loader/ProductDetailsSkeleton";
 import { SamllButton } from "../components";
@@ -7,6 +7,7 @@ import {
   useAddToCartMutation,
   useFetchProductDetailsQuery,
 } from "../redux/apiSlice";
+import { useState } from "react";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,9 +17,11 @@ const ProductDetails = () => {
   const { data: item, isLoading } = useFetchProductDetailsQuery(id);
   const [addToCart] = useAddToCartMutation();
 
+  const [count, setCount] = useState(1);
+
   const handleAddToCart = async () => {
     try {
-      await addToCart({ productId: id, quantity: 1 });
+      await addToCart({ productId: id, quantity: count });
     } catch (err) {
       console.error("Failed to add to cart: ", err);
     }
@@ -61,13 +64,16 @@ const ProductDetails = () => {
               totam?`}
             </p>
             <div className="mb-5 mt-6 flex items-center border-b-2 border-gray-100 pb-5">
-              <div className="flex items-center">
+              {/* color-rasdio-button */}
+
+              {/* <div className="flex items-center">
                 <span className="mr-3 text-sm font-semibold">Color</span>
                 <button className="h-6 w-6 rounded-full border-2 border-gray-300 focus:outline-none"></button>
                 <button className="ml-1 h-6 w-6 rounded-full border-2 border-gray-300 bg-gray-700 focus:outline-none"></button>
                 <button className="ml-1 h-6 w-6 rounded-full border-2 border-gray-300 bg-green-200 focus:outline-none"></button>
-              </div>
-              <div className="ml-auto flex items-center">
+              </div> */}
+              {/* size-select-dropdown */}
+              {/* <div className="ml-auto flex items-center">
                 <span className="mr-3 text-sm font-semibold">Size</span>
                 <div className="relative">
                   <select className="appearance-none rounded border border-gray-300 py-2 pl-3 pr-10 text-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black">
@@ -79,8 +85,31 @@ const ProductDetails = () => {
                     <ChevronDown size={16} />
                   </span>
                 </div>
+              </div> */}
+              <div className="min-w-24 flex">
+                <button
+                  type="button"
+                  className="h-7 w-7"
+                  onClick={() => setCount((prev) => (prev > 1 ? prev - 1 : 1))}
+                >
+                  -
+                </button>
+                <input
+                  type="text"
+                  className="mx-1 h-7 w-9 rounded-md border text-center"
+                  defaultValue={1}
+                  value={count}
+                />
+                <button
+                  type="button"
+                  className="flex h-7 w-7 items-center justify-center"
+                  onClick={() => setCount((prev) => prev + 1)}
+                >
+                  +
+                </button>
               </div>
             </div>
+
             <div className="flex items-center justify-between">
               <span className="title-font text-xl font-bold text-gray-900">
                 ₹47,199

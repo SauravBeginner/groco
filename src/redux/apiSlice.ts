@@ -21,6 +21,18 @@ export const apiSlice = createApi({
       query: (body) => ({ url: "/cart/add", method: "POST", body }),
       invalidatesTags: ["Cart"],
     }),
+    editCart: builder.mutation<any, any>({
+      query: (body) => ({ url: "/cart/update", method: "PATCH", body }),
+      invalidatesTags: ["Cart"],
+    }),
+    deleteCart: builder.mutation<any, any>({
+      query: (body) => ({ url: "/cart/delete", method: "DELETE", body }),
+      invalidatesTags: ["Cart"],
+    }),
+    clearCart: builder.mutation<any, any>({
+      query: () => ({ url: "/cart/clear-cart", method: "DELETE" }),
+      invalidatesTags: ["Cart"],
+    }),
   }),
 });
 
@@ -29,4 +41,7 @@ export const {
   useFetchProductDetailsQuery,
   useFetchCartQuery,
   useAddToCartMutation,
+  useDeleteCartMutation,
+  useEditCartMutation,
+  useClearCartMutation,
 } = apiSlice;

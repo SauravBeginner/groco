@@ -2,12 +2,23 @@ import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./Button";
 import { forwardRef } from "react";
-import { useFetchCartQuery } from "../redux/apiSlice";
+import { useDeleteCartMutation, useFetchCartQuery } from "../redux/apiSlice";
 
 export const CartModal = forwardRef<HTMLDivElement>((_, ref) => {
   const { data: item, isLoading } = useFetchCartQuery();
 
   const navigate = useNavigate();
+
+  const [deleteCart] = useDeleteCartMutation();
+
+  const handleDeleteCartItem = async (id: string) => {
+    try {
+      await deleteCart({ itemId: id });
+    } catch (err) {
+      console.error("Failed to add to cart: ", err);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="absolute top-20 right-0 w-72 p-4 bg-white rounded-lg shadow-lg border-t">
@@ -43,7 +54,7 @@ export const CartModal = forwardRef<HTMLDivElement>((_, ref) => {
     );
   }
 
-  if (!item) {
+  if (item?.totalQuantity === 0) {
     return (
       <div
         ref={ref}
@@ -89,7 +100,10 @@ export const CartModal = forwardRef<HTMLDivElement>((_, ref) => {
                 </span>
               </div>
             </div>
-            <span className="material-symbols-outlined text-2xl text-gray-800 cursor-pointer hover:text-green-500">
+            <span
+              className="material-symbols-outlined text-2xl text-gray-800 cursor-pointer hover:text-green-500"
+              onClick={() => handleDeleteCartItem(cartItem?.id)}
+            >
               <MdDelete />
             </span>
           </div>

@@ -8,10 +8,16 @@ import { SamllButton } from "./SmallButton";
 import { logout } from "../redux/authSlice";
 import { Modal } from "./Modal";
 import { RootState } from "../redux/rootReducer";
+import { useFetchCartQuery } from "../redux/apiSlice";
+import DeleteModal from "./DeleteModal";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
+
+  const { data: item } = useFetchCartQuery();
+  const { totalQuantity } = item || {};
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -70,12 +76,17 @@ export const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleLogout = async () => {
+    setIsLogOutModalOpen(true);
+  };
+  const confirmLogout = async () => {
     const result = await dispatch(logout());
 
     if (logout.fulfilled.match(result)) {
       navigate("/login");
+      setIsLogOutModalOpen(false);
     }
   };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 bg-white shadow-lg">
       <h3
@@ -115,13 +126,19 @@ export const Navbar = () => {
         </span>
         {isAuthenticated ? (
           <>
-            <span
-              className="material-symbols-outlined h-12 w-12 bg-gray-200 text-gray-800 text-2xl font-bold flex items-center justify-center rounded-lg cursor-pointer hover:bg-green-500 hover:text-white"
-              onClick={handleProfileClick2}
-              ref={btn2Ref}
-            >
-              <FaCartPlus />
-            </span>
+            <div className="relative">
+              <span
+                className="material-symbols-outlined h-12 w-12 bg-gray-200 text-gray-800 text-2xl font-bold flex items-center justify-center rounded-lg cursor-pointer hover:bg-green-500 hover:text-white"
+                onClick={handleProfileClick2}
+                ref={btn2Ref}
+              >
+                <FaCartPlus />
+
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                  {totalQuantity}
+                </span>
+              </span>
+            </div>
             <span
               className="material-symbols-outlined h-12 w-12 bg-gray-200 text-gray-800 text-2xl font-bold flex items-center justify-center rounded-lg cursor-pointer hover:bg-green-500 hover:text-white"
               onClick={handleProfileClick}
@@ -140,6 +157,14 @@ export const Navbar = () => {
         </div>
       </div>
       {isOpen && isAuthenticated && <CartModal ref={dropDown2Ref} />}
+
+      {isLogOutModalOpen && (
+        <DeleteModal
+          message={"Are you sure you want to logout?"}
+          onConfirm={confirmLogout}
+          onClose={() => setIsLogOutModalOpen(false)}
+        />
+      )}
     </header>
   );
 };
