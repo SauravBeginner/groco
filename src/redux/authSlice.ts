@@ -40,13 +40,15 @@ export const login = createAsyncThunk(
   "auth/login",
   async (
     credentials: { email: string; password: string },
-    { rejectWithValue }
+    { dispatch, rejectWithValue }
   ) => {
     try {
       const response = await publicAxios.post("/auth/login", credentials, {
         withCredentials: true,
       });
-      console.log(response.data.user);
+      //   console.log(response.data.user);
+      dispatch(apiSlice.util.invalidateTags(["Cart"]));
+      dispatch(apiSlice.endpoints.fetchCart.initiate());
       return response.data.user;
     } catch (error: any) {
       if (error.response && error.response.data) {
@@ -74,6 +76,7 @@ export const logout = createAsyncThunk(
         }
       );
       dispatch(apiSlice.util.invalidateTags(["Cart"]));
+      dispatch(apiSlice.endpoints.fetchCart.initiate());
     } catch (error: any) {
       if (error.response && error.response.data) {
         return rejectWithValue(
