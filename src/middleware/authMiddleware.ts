@@ -22,7 +22,7 @@ export const authenticateJWT = (
   try {
     const authHeader = req.headers?.authorization;
 
-    const token = req.cookies.token || authHeader?.split(" ")[1];
+    const token = req?.cookies?.token || authHeader?.split(" ")[1];
 
     if (!token) {
       return res.status(403).json({ error: "Unauthorized!" });
