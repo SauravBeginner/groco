@@ -7,7 +7,7 @@ const CheckOut = () => {
   const { cart } = item || {};
   return (
     <div className="mt-24">
-      <div className="mx-auto my-4 max-w-4xl md:my-6">
+      <div className="mx-auto my-4 max-w-6xl md:my-6">
         <div className="overflow-hidden rounded-xl shadow">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Contact Info */}

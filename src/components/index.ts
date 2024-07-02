@@ -25,3 +25,8 @@ export * from "./OrderPrice";
 export * from "./DeleteModal";
 export * from "./CartImes";
 export * from "./PriceDetails";
+
+export * from "./ShippingAddress";
+export * from "./BillingAddress";
+export * from "./PaymentDetails";
+export * from "./PersonalDetails";
