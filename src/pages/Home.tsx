@@ -13,11 +13,11 @@ const Home = () => {
     <div>
       <Banner />
       <section className="px-8">
-        {/* <Featured />
+        <Featured />
         <Products />
         <Categories />
         <Herosection />
-        <Reviews /> */}
+        <Reviews />
       </section>
     </div>
   );
