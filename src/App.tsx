@@ -13,6 +13,8 @@ const Signup = React.lazy(() => import("./pages/Signup"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Verification = React.lazy(() => import("./pages/Verification"));
 const Cart = React.lazy(() => import("./pages/Cart"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
+const CheckOut = React.lazy(() => import("./pages/CheckOut"));
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
             <Route path="/verify/:token" element={<Verification />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/blogs" element={<Blogs />} />
+            <Route path="/checkOut" element={<CheckOut />} />
+            <Route path="/*" element={<NotFound />} />
           </Route>
         </Routes>
       </Suspense>

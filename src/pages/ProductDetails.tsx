@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
-import { useParams } from "react-router-dom";
-import { ProductDetailsSkeleton } from "../loader/ProductDetailsSkeleton";
+import { useNavigate, useParams } from "react-router-dom";
+import { ProductDetailsSkeleton } from "../loader";
 import { SamllButton } from "../components";
 import withScrollTop from "../hoc/withScrollTop";
 import {
@@ -11,6 +11,7 @@ import { useState } from "react";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   if (!id) {
     return;
   }
@@ -27,6 +28,10 @@ const ProductDetails = () => {
     }
   };
   if (isLoading) return <ProductDetailsSkeleton />;
+
+  if (!item) {
+    navigate("/", { replace: true });
+  }
 
   const product = item?.product;
 
@@ -112,7 +117,7 @@ const ProductDetails = () => {
 
             <div className="flex items-center justify-between">
               <span className="title-font text-xl font-bold text-gray-900">
-                ₹47,199
+                ₹ {product?.price}
               </span>
               <SamllButton type="button" onClick={handleAddToCart}>
                 Add to Cart

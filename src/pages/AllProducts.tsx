@@ -21,7 +21,7 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { ProductCard } from "../components";
-import { ProductSkeleton } from "../loader/ProductSkeleton";
+import { ProductSkeleton } from "../loader";
 import withScrollTop from "../hoc/withScrollTop";
 import { useFetchProductsQuery } from "../redux/apiSlice";
 const sortOptions = [

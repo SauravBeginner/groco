@@ -17,3 +17,11 @@ export * from "./Categories";
 export * from "./Herosection";
 export * from "./Reviews";
 export * from "../pages/Blogs";
+
+export * from "./CheckOutItems";
+export * from "./ContactInfo";
+export * from "./OrderPrice";
+
+export * from "./DeleteModal";
+export * from "./CartImes";
+export * from "./PriceDetails";

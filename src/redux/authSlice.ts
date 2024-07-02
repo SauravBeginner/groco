@@ -23,7 +23,7 @@ export const fetchUserDetails = createAsyncThunk(
         withCredentials: true,
       });
       //   console.log(response.data.user);
-      return response.data.user;
+      return response.data?.user;
     } catch (error: any) {
       if (error.response && error.response.data) {
         return rejectWithValue(

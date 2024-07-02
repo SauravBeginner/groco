@@ -1,14 +1,13 @@
 import { Trash } from "lucide-react";
 import withScrollTop from "../hoc/withScrollTop";
 import { useClearCartMutation, useFetchCartQuery } from "../redux/apiSlice";
-import { CartSkeleton } from "../loader/CartSkeleton";
+import { CartSkeleton } from "../loader";
 import { useEffect, useState } from "react";
-import DeleteModal from "../components/DeleteModal";
-import { CartImes } from "../components/CartImes";
-import { PriceDetails } from "../components/PriceDetails";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/rootReducer";
 import { useNavigate } from "react-router-dom";
+import { CartImes, PriceDetails } from "../components";
+import DeleteModal from "../components/DeleteModal";
 
 const Cart = () => {
   const { data: item, isLoading } = useFetchCartQuery();
@@ -17,15 +16,18 @@ const Cart = () => {
   const [msg, setMsg] = useState("");
   const [clearCart] = useClearCartMutation();
 
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth?.isAuthenticated
+  const { loading, isAuthenticated } = useSelector(
+    (state: RootState) => state?.auth
   );
   const navigate = useNavigate();
+  //   console.log("loading", loading, "isAuthenticated", isAuthenticated);
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login", { replace: true });
     }
-  }, [isAuthenticated]);
+  }, [loading, isAuthenticated]);
+
   const handleClearCart = async () => {
     try {
       await clearCart(undefined);

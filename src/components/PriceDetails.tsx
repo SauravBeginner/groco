@@ -1,6 +1,7 @@
 import { Button } from "./Button";
-import { OrderSkeleton } from "../loader/OrderSkeleton";
+import { OrderSkeleton } from "../loader";
 import { useFetchCartQuery } from "../redux/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 interface PriceProps {
   totalQuantity: number;
@@ -8,7 +9,7 @@ interface PriceProps {
 }
 export const PriceDetails = ({ totalQuantity, totalPrice }: PriceProps) => {
   const { isLoading } = useFetchCartQuery();
-
+  const navigate = useNavigate();
   return (
     <section
       aria-labelledby="summary-heading"
@@ -60,7 +61,7 @@ export const PriceDetails = ({ totalQuantity, totalPrice }: PriceProps) => {
             <div className="px-2 pb-4 font-medium text-green-700">
               You will save ₹ 3,431 on this order
             </div>
-            <Button>CheckOut</Button>
+            <Button onClick={() => navigate("/checkout")}>CheckOut</Button>
           </div>
         )}
       </div>

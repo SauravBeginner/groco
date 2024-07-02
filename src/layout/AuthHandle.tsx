@@ -10,6 +10,7 @@ interface AuthHandleProps {
 const AuthHandle = ({ children }: AuthHandleProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(fetchUserDetails()).then(() => {
       if (
